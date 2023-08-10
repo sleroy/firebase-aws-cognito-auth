@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  sam-app
+  firebase-user-migration
 
-  Sample SAM Template for sam-app
+  Firebase user migration lambda
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -14,21 +14,21 @@ Globals:
   Api:
     TracingEnabled: true
 Resources:
-  HelloWorldFunction:
+  FirebaseUserMigrationFunction:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
       Architectures:
       - x86_64
       Events:
-        HelloWorld:
+        FirebaseUserMigration:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /user-migration
             Method: get
     Metadata:
       DockerTag: nodejs18.x-v1
-      DockerContext: ./hello-world
+      DockerContext: ./firebase-user-migration
       Dockerfile: Dockerfile
 
   ApplicationResourceGroup:
@@ -48,12 +48,12 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
+  FirebaseUserMigrationApi:
+    Description: API Gateway endpoint URL for Prod stage for Firebase User Migration function
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: Hello World Lambda Function ARN
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  FirebaseUserMigrationFunction:
+    Description: Firebase User Migration Lambda Function ARN
+    Value: !GetAtt FirebaseUserMigrationFunction.Arn
+  FirebaseUserMigrationFunctionIamRole:
+    Description: Implicit IAM Role created for Firebase User Migration function
+    Value: !GetAtt FirebaseUserMigrationFunctionRole.Arn
