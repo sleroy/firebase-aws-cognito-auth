@@ -6,7 +6,8 @@ phases:
   build:
     commands:
       #- sam package --template-file user-migration-lambda/template.yml --s3-bucket s3-firebase-lambda-layer --output-template-file packaged-template.yml
-      - cd user-migration-lambda && sam deploy
+      - cd user-migration-lambda && sam build
+      - sam deploy
 artifacts:
   files:
     - packaged-template.yml
